@@ -1,0 +1,21 @@
+version: '3'
+services:
+  api:
+    environment:
+      - PORT=8081
+      - POSTS_API=http://posts-service:80
+    build: 
+      context: '.'
+      dockerfile: './DockerFiles/API/DockerFile'
+    depends_on:
+      - posts-service
+    ports:
+      - "1256:8081"
+    container_name: user-facing-api
+  posts-service:
+    environment:
+      - PORT=80
+    build: 
+      context: '.'
+      dockerfile: './DockerFiles/PostsService/DockerFile'
+    container_name: posts-service
